@@ -155,7 +155,6 @@ async def on_message(message):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
         #await my_last_message.add_reaction("🗑️")
     
-    
 
 @bot.event
 async def on_member_join(member):
@@ -173,6 +172,11 @@ async def on_member_leave(member):
     memname = "Member count: " + str(memcount)
     await memch.edit(name=memname)
 
+@bot.command
+async def warns(uid):
+    infractions = get_warns(uid)
+    modhelp = discord.Embed(
+        title="Infractions for " + uid, description=infractions, color=0x0c0f27)
 
 @bot.event
 async def on_command_error(ctx, error):
