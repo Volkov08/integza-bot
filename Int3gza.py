@@ -109,10 +109,12 @@ async def on_message(message):
     await bot.wait_until_ready()
     user = await bot.db.get_user(message.author.id)
     await bot.db.update_user_xp(message.author.id, 5)
-
+    if message.author.bot:
+        return 
     if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
         xpamount = random.randint(2,20)
         await bot.db.update_user_xp(message.author.id, xpamount)
+    
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
         #await my_last_message.add_reaction("🗑️")
