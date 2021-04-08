@@ -164,12 +164,12 @@ async def on_message(message):
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
         #await my_last_message.add_reaction("🗑️")
-        
+
 @bot.command()
 async def warns(uid):
-    infractions = get_warns(uid)
+    infractions = await bot.db.get_warns(uid)
     embed = discord.Embed(
-        title="Infractions for " + uid, description=infractions, color=0x0c0f27)
+        title="Infractions for " + uid, description=str(infractions), color=0x0c0f27)
     await message.channel.send(embed = embed)
 
 @bot.event
