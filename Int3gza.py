@@ -170,7 +170,7 @@ async def warns(uid):
     infractions = await bot.db.get_warns(uid)
     embed = discord.Embed(
         title="Infractions for " + uid, description=str(infractions), color=0x0c0f27)
-    await message.channel.send(embed = embed)
+    await ctx.send(embed=embed)
 
 @bot.event
 async def on_command_error(ctx, error):
