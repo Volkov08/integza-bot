@@ -211,7 +211,7 @@ async def warns(uid):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def leaderboard():
+async def leaderboard(ctx):
     leaderboard = await bot.db.leaderboard()
     embed = discord.Embed(
         title="Leaderboard for integza discord", description=leaderboard, color=0x0c0f27)
