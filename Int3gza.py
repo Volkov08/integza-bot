@@ -123,7 +123,7 @@ async def on_message(message):
         xpamount = random.randint(2,20)
         await bot.db.update_user_xp(message.author.id, xpamount)
     
-    if ("print" and "metal" in message.content):
+    if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
         #await my_last_message.add_reaction("🗑️")
     
