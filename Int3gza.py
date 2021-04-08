@@ -175,8 +175,9 @@ async def on_member_leave(member):
 @bot.command
 async def warns(uid):
     infractions = get_warns(uid)
-    modhelp = discord.Embed(
+    embed = discord.Embed(
         title="Infractions for " + uid, description=infractions, color=0x0c0f27)
+    await message.channel.send(embed = embed)
 
 @bot.event
 async def on_command_error(ctx, error):
