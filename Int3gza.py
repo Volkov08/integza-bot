@@ -210,7 +210,7 @@ async def warns(uid):
         title="Infractions for " + uid, description=str(infractions), color=0x0c0f27)
     await ctx.send(embed=embed)
 
-@bot.command(name= leaderboard)
+@bot.command()
 async def leaderboard():
     leaderboard = await bot.db.leaderboard()
     embed = discord.Embed(
