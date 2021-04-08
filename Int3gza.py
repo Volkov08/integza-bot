@@ -172,7 +172,7 @@ async def on_member_leave(member):
     memname = "Member count: " + str(memcount)
     await memch.edit(name=memname)
 
-@bot.command
+@bot.command()
 async def warns(uid):
     infractions = get_warns(uid)
     embed = discord.Embed(
