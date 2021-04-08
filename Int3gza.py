@@ -202,12 +202,19 @@ async def xp(ctx: commands.Context):
     embed.description = f"Your current xp is {xp}"
 
     await ctx.send(embed=embed)
-    
+
 @bot.command()
 async def warns(uid):
     infractions = await bot.db.get_warns(uid)
     embed = discord.Embed(
         title="Infractions for " + uid, description=str(infractions), color=0x0c0f27)
+    await ctx.send(embed=embed)
+
+@bot.command(name= leaderboard)
+async def leaderboard():
+    leaderboard = await bot.db.leaderboard()
+    embed = discord.Embed(
+        title="Leaderboard for integza discord", description=leaderboard, color=0x0c0f27)
     await ctx.send(embed=embed)
 
 @bot.event
