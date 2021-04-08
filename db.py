@@ -48,3 +48,6 @@ class Database:
         if user:
             return user
         return await self.create_user(id)
+    
+    async def get_warns(self,id):
+        await self.fetchrow("SELECT * FROM warns WHERE user_id = $1;", id)
