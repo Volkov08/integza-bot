@@ -4,7 +4,7 @@ import asyncio
 import logging
 import os
 import datetime
-from discord.ext import commands
+from discord.ext import commands, tasks
 import re
 from discord import Intents
 from db import Database
@@ -80,11 +80,19 @@ modhelp.add_field(
 workembed = discord.Embed(
     title="WORK!", description="no one will be sending you a printer for no reason! either get a job or do freelance work. Maybe your comment will get a lot of likes and you will win a printer, but no one will give you one after you ask!", color=0x0c0f27)
 
+#member update
 
+@tasks.loop(seconds = 360)
+async def memupdate():
+    channel = bot.get_channel(775014639204696104)
+    memname = "Member count: " + str(channel.guild.member_count)
+    await channel.edit(name=memname)
+    
 #  Start  #
 
 @bot.event
 async def on_ready():
+    memupdate.start()
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Destroying Tomatos!'))
     print("--------------------")
     print('Logged in as')
@@ -156,24 +164,7 @@ async def on_message(message):
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
         #await my_last_message.add_reaction("🗑️")
-    
-
-@bot.event
-async def on_member_join(member):
-    print("someone joined poggers")
-    memch = member.guild.get_channel(775014639204696104)
-    memcount = member.guild.member_count
-    memname = "Member count: " + str(memcount)
-    await memch.edit(name=memname)
-
-@bot.event
-async def on_member_leave(member):
-    print("someone left poggers")
-    memch = member.guild.get_channel(775014639204696104)
-    memcount = member.guild.member_count
-    memname = "Member count: " + str(memcount)
-    await memch.edit(name=memname)
-
+        
 @bot.command()
 async def warns(uid):
     infractions = get_warns(uid)
