@@ -154,11 +154,11 @@ async def on_message(message):
         await message.author.send(embed = workembed)
     
     if("can i ask" in message.content):
-        await message.author.send("https://dontasktoask.com/")
+        await message.channel.send("https://dontasktoask.com/")
 
     if(message.content == ">modhelp"):
         for role in message.author.roles:
-            if role.name == "Helper":
+            if role.name == "Chat Mods":
                 await message.author.send(embed = modhelp)
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
@@ -212,9 +212,12 @@ async def warns(uid):
 
 @bot.command()
 async def leaderboard(ctx):
-    leaderboard = await bot.db.get_leaderboard()
     embed = discord.Embed(
-        title="Leaderboard for integza discord", description=leaderboard, color=0x0c0f27)
+        title="Leaderboard for integza discord", description=, color=0x0c0f27)
+    for result in await db.get_leaderboard():
+        embed.add_field(
+            name=, value="", inline=False)
+
     await ctx.send(embed=embed)
 
 @bot.event
