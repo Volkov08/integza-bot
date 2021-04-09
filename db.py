@@ -24,7 +24,6 @@ class Database:
 
     async def setup(self):
         self.pool = await create_pool(dsn=getenv("DATABASE_URL"))
-
         await self.execute(CREATE)
 
     async def execute(self, query: str, *args):
