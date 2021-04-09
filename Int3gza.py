@@ -17,12 +17,14 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 guild = bot.get_guild(757144308204961833)
 DATABASE_URL = os.environ['DATABASE_URL']
 bot.db = Database()
+workes = ["You crush some tomatos","You make some pancakes for your neighbor","you work at papa johns","you kill a couple of tomatos, integza is satisfied","you open an onlyfans, but youre ugly","you disrupt tomato lord Jr.'s workflow","you slash tomatos with your katana, integza san is satisfied","you milk some almonds"]
 # TRIGGERS #
 
 metalTriggers = [ "3d print metal","print metal","metal printer"]
 printTriggers = [ "printer should","good (3d|resin) printer","what printer","i should buy","buy a 3d printer"]
 
-#  Embeds  #
+# Work Embeds  #
+
 
 #  Metal  printer Embed  #
 metalembed = discord.Embed(
@@ -184,25 +186,6 @@ async def bal(ctx: commands.Context):
 
     await ctx.send(embed=embed)
 
-@bot.command(name="work")
-async def bal(ctx: commands.Context):
-    embed = discord.Embed(
-        title=f"{ctx.author}",
-        colour=0x87CEEB,
-        timestamp=ctx.message.created_at,
-    )
-
-    user = await bot.db.get_user(ctx.author.id)
-
-    if not user:
-        bal = 0
-    else:
-        bal = user["balance"]
-
-    embed.description = f"Your current balance is {bal}"
-
-    await ctx.send(embed=embed)
-
 @bot.command(name="xp")
 async def xp(ctx: commands.Context):
     embed = discord.Embed(
@@ -238,6 +221,16 @@ async def leaderboard(ctx):
             name="", value="", inline=False)
 
     await ctx.send(embed=embed)
+
+@bot.command()
+async def work(ctx):
+    user = await bot.db.get_user(message.author.id)
+    if user["last_work"] + datetime.timedelta(seconds=600) < datetime.datetime.now():
+        reward = random.randint(7,31)
+        embed = discord.Embed(title= random.choice(workes), description = f"you make {reward} Integzacoins")
+        await bot.db.update_user_balance(message.author.id, reward)
+
+    
 
 @bot.event
 async def on_command_error(ctx, error):
