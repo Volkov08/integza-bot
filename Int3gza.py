@@ -233,7 +233,7 @@ async def work(ctx):
     else:
         side1 = user["last_work"] + datetime.timedelta(seconds=600) 
         remaining = side1 - datetime.datetime.now()
-        remainingg = datetime(remaining)
+        remainingg = datetime.datetime(remaining)
         remainingseconds = remainingg.strftime('%M:%S')
         embed = discord.Embed(title="you cant work yet!", description = f"wait another {remainingseconds} seconds")
         await ctx.send(embed=embed)
