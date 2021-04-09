@@ -244,7 +244,8 @@ async def work(ctx):
         await ctx.send(embed=embed)
     
 @bot.command(name="roulette")
-async def roulette(ctx, color, int: amount):    
+async def roulette(ctx, color, bet):    
+    amount = int(bet)
     user = await bot.db.get_user(ctx.message.author.id)
     result = random.randint(1,100)
     if result > 1 and result < 51:
