@@ -231,6 +231,7 @@ async def work(ctx):
         reward = random.randint(7,31)
         embed = discord.Embed(title= random.choice(workes), description = f"you make {reward} Integzacoins")
         await bot.db.update_user_balance(ctx.message.author.id, reward)
+        await bot.db.reset_work(ctx.message.author.id)
         await ctx.send(embed=embed)
     else:
         side1 = user["last_work"] + datetime.timedelta(seconds=600) 
@@ -245,6 +246,7 @@ async def roulette(ctx, color, bet):
     if user["last_roulette"] + datetime.timedelta(seconds=7) < datetime.datetime.now():
         inicost = amount * -1
         await bot.db.update_user_balance(ctx.message.author.id, inicost)
+        await bot.db.reset_roulette(ctx.message.author.id)
         result = random.randint(1,100)
         if result > 1 and result < 51:
             rancolor = "red"
@@ -267,8 +269,7 @@ async def roulette(ctx, color, bet):
         else:
             embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You lost {amount} Integzacoins")
             await ctx.send(embed = embed)
-
-        
+            
     else:
         side1 = user["last_work"] + datetime.timedelta(seconds=7) 
         remaining = side1 - datetime.datetime.now()
