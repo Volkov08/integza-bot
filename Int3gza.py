@@ -224,11 +224,12 @@ async def leaderboard(ctx):
 
 @bot.command()
 async def work(ctx):
-    user = await bot.db.get_user(message.author.id)
+    user = await bot.db.get_user(ctx.message.author.id)
     if user["last_work"] + datetime.timedelta(seconds=600) < datetime.datetime.now():
         reward = random.randint(7,31)
         embed = discord.Embed(title= random.choice(workes), description = f"you make {reward} Integzacoins")
-        await bot.db.update_user_balance(message.author.id, reward)
+        await bot.db.update_user_balance(ctx.message.author.id, reward)
+        ctx.send(embed=embed)
 
     
 
