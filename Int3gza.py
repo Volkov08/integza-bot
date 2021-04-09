@@ -230,6 +230,11 @@ async def work(ctx):
         embed = discord.Embed(title= random.choice(workes), description = f"you make {reward} Integzacoins")
         await bot.db.update_user_balance(ctx.message.author.id, reward)
         await ctx.send(embed=embed)
+    else:
+        side1 = user["last_work"] + datetime.timedelta(seconds=600) 
+        remaining = side1 - datetime.datetime.now():
+        embed = discord.Embed(title="you cant work yet!", description = f"wait another {remaining} seconds")
+    
 
     
 
