@@ -184,6 +184,25 @@ async def bal(ctx: commands.Context):
 
     await ctx.send(embed=embed)
 
+@bot.command(name="work")
+async def bal(ctx: commands.Context):
+    embed = discord.Embed(
+        title=f"{ctx.author}",
+        colour=0x87CEEB,
+        timestamp=ctx.message.created_at,
+    )
+
+    user = await bot.db.get_user(ctx.author.id)
+
+    if not user:
+        bal = 0
+    else:
+        bal = user["balance"]
+
+    embed.description = f"Your current balance is {bal}"
+
+    await ctx.send(embed=embed)
+
 @bot.command(name="xp")
 async def xp(ctx: commands.Context):
     embed = discord.Embed(
@@ -213,7 +232,7 @@ async def warns(uid):
 @bot.command()
 async def leaderboard(ctx):
     embed = discord.Embed(
-        title="Leaderboard for integza discord", description=, color=0x0c0f27)
+        title="Leaderboard for integza discord", description="", color=0x0c0f27)
     for result in await db.get_leaderboard():
         embed.add_field(
             name=, value="", inline=False)
