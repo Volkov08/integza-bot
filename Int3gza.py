@@ -19,7 +19,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 bot.db = Database()
 workes = ["You crush some tomatos","You make some pancakes for your neighbor","you work at papa johns","you kill a couple of tomatos, integza is satisfied","you open an onlyfans, but youre ugly","you disrupt tomato lord Jr.'s workflow","you slash tomatos with your katana, integza san is satisfied","you milk some almonds"]
 noxpchannels = [774312474987331627,774669694648057866,825541136399597609]
-lucas = bot.fetch_user(235474087001063424)
 # TRIGGERS #
 
 metalTriggers = [ "3d print metal","print metal","metal printer"]
@@ -91,11 +90,6 @@ async def memupdate():
     channel = bot.get_channel(775014639204696104)
     memname = "Member count: " + str(channel.guild.member_count)
     await channel.edit(name=memname)
-
-#@tasks.loop(seconds=86400)
-#async def learnpython():
-    #global lucas
-    #await lucas.send()
 
 #  Start  #
 
@@ -259,12 +253,12 @@ async def roulette(ctx, color, bet):
     
     if color == rancolor:
         if rancolor != "green":
-            embed = discord.Embed(title="It lands on {rancolor}!", description = f"You win {amount * 2 + amount} Integzacoins")
+            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 2 + amount} Integzacoins")
             reward = amount * 2 + amount
             await bot.db.update_user_balance(ctx.message.author.id, reward)
             await ctx.send(embed = embed)
         else:
-            embed = discord.Embed(title="It lands on {rancolor}!", description = f"You win {amount * 10 + amount} Integzacoins")
+            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 10 + amount} Integzacoins")
             reward = amount * 10 + amount
             await bot.db.update_user_balance(ctx.message.author.id, reward)
             await ctx.send(embed = embed)
