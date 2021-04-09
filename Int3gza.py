@@ -222,7 +222,7 @@ async def leaderboard(ctx):
 
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(name="work")
 async def work(ctx):
     user = await bot.db.get_user(ctx.message.author.id)
     if user["last_work"] + datetime.timedelta(seconds=600) < datetime.datetime.now():
