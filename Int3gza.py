@@ -107,6 +107,7 @@ async def on_ready():
 @bot.listen()
 async def on_connect():
     await bot.db.setup()
+    print("database loaded")
 
 #  On Message  #
 
