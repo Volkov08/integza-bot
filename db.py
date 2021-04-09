@@ -43,6 +43,9 @@ class Database:
     async def update_user_xp(self, id: int, xp: int):
         await self.execute("UPDATE Users SET xp = xp + $1, last_xp = NOW() WHERE id = $2;", xp, id)
     
+    async def update_user_balance(self, id: int, xp: int):
+        await self.execute("UPDATE Users SET balance = balance + $1, last_work = NOW() WHERE id = $2;", xp, id)
+    
     async def get_leaderboard(self):
         return await self.fetch("SELECT * FROM Users ORDER BY xp DESC LIMIT 15;")
     async def get_user(self, id: int):
