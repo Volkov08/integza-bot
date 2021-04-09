@@ -253,12 +253,12 @@ async def roulette(ctx, color, bet):
     
     if color == rancolor:
         if rancolor != "green":
-            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 2 + amount} Integzacoins")
+            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 2} Integzacoins")
             reward = amount * 2 + amount
             await bot.db.update_user_balance(ctx.message.author.id, reward)
             await ctx.send(embed = embed)
         else:
-            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 10 + amount} Integzacoins")
+            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 10} Integzacoins")
             reward = amount * 10 + amount
             await bot.db.update_user_balance(ctx.message.author.id, reward)
             await ctx.send(embed = embed)
