@@ -262,7 +262,9 @@ async def roulette(ctx, color, bet):
             reward = amount * 10 + amount
             await bot.db.update_user_balance(ctx.message.author.id, reward)
             await ctx.send(embed = embed)
-    
+    else:
+        embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You lost {amount} Integzacoins")
+        await ctx.send(embed = embed)
 
 
     
