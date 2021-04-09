@@ -235,7 +235,7 @@ async def leaderboard(ctx):
         title="Leaderboard for integza discord", description="", color=0x0c0f27)
     for result in await db.get_leaderboard():
         embed.add_field(
-            name=, value="", inline=False)
+            name="", value="", inline=False)
 
     await ctx.send(embed=embed)
 
