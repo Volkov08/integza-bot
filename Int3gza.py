@@ -19,6 +19,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 bot.db = Database()
 workes = ["You crush some tomatos","You make some pancakes for your neighbor","you work at papa johns","you kill a couple of tomatos, integza is satisfied","you open an onlyfans, but youre ugly","you disrupt tomato lord Jr.'s workflow","you slash tomatos with your katana, integza san is satisfied","you milk some almonds"]
 noxpchannels = [774312474987331627,774669694648057866,825541136399597609]
+lucas = bot.fetch_user(235474087001063424)
 # TRIGGERS #
 
 metalTriggers = [ "3d print metal","print metal","metal printer"]
@@ -90,7 +91,12 @@ async def memupdate():
     channel = bot.get_channel(775014639204696104)
     memname = "Member count: " + str(channel.guild.member_count)
     await channel.edit(name=memname)
-    
+
+#@tasks.loop(seconds=86400)
+#async def learnpython():
+    #global lucas
+    #await lucas.send()
+
 #  Start  #
 
 @bot.event
@@ -237,6 +243,28 @@ async def work(ctx):
         embed = discord.Embed(title="you cant work yet!", description = f" please wait {remaining.seconds//60} minutes and {remaining.seconds%60} seconds")
         await ctx.send(embed=embed)
     
+@bot.command(name="roulette")
+async def roulette(ctx, color, amount):    
+    user = await bot.db.get_user(ctx.message.author.id)
+    result = random.randint(1,100)
+    if result > 1 and result < 51:
+        rancolor = "red"
+    if result > 51:
+        rancolor = "black"
+    if result == 1:
+        rancolor = "green"
+    
+    if color == rancolor:
+        if rancolor != "green":
+            embed = discord.Embed(title="It lands on {rancolor}!", description = f"You win {amount * 2 + amount} Integzacoins")
+            reward = amount * 2 + amount
+            await bot.db.update_user_balance(ctx.message.author.id, reward)
+        else:
+            embed = discord.Embed(title="It lands on {rancolor}!", description = f"You win {amount * 10 + amount} Integzacoins")
+            reward = amount * 10 + amount
+            await bot.db.update_user_balance(ctx.message.author.id, reward)
+    
+
 
     
 
