@@ -119,7 +119,6 @@ async def on_message(message):
     global yo
     await bot.wait_until_ready()
     user = await bot.db.get_user(message.author.id)
-    await bot.db.update_user_xp(message.author.id, 5)
     if message.author.bot:
         return 
     if message.channel.id not in noxpchannels:
