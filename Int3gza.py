@@ -241,31 +241,40 @@ async def work(ctx):
 async def roulette(ctx, color, bet):    
     amount = int(bet)
     user = await bot.db.get_user(ctx.message.author.id)
-    inicost = amount * -1
-    await bot.db.update_user_balance(ctx.message.author.id, inicost)
-    result = random.randint(1,100)
-    if result > 1 and result < 51:
-        rancolor = "red"
-    if result > 51:
-        rancolor = "black"
-    if result == 1:
-        rancolor = "green"
-    
-    if color == rancolor:
-        if rancolor != "green":
-            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 2} Integzacoins")
-            reward = amount * 2 + amount
-            await bot.db.update_user_balance(ctx.message.author.id, reward)
-            await ctx.send(embed = embed)
+    if user["last_roulette"] + datetime.timedelta(seconds=7) < datetime.datetime.now():
+        inicost = amount * -1
+        await bot.db.update_user_balance(ctx.message.author.id, inicost)
+        result = random.randint(1,100)
+        if result > 1 and result < 51:
+            rancolor = "red"
+        if result > 51:
+            rancolor = "black"
+        if result == 1:
+            rancolor = "green"
+        
+        if color == rancolor:
+            if rancolor != "green":
+                embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 2} Integzacoins")
+                reward = amount * 2 + amount
+                await bot.db.update_user_balance(ctx.message.author.id, reward)
+                await ctx.send(embed = embed)
+            else:
+                embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 10} Integzacoins")
+                reward = amount * 10 + amount
+                await bot.db.update_user_balance(ctx.message.author.id, reward)
+                await ctx.send(embed = embed)
         else:
-            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You win {amount * 10} Integzacoins")
-            reward = amount * 10 + amount
-            await bot.db.update_user_balance(ctx.message.author.id, reward)
+            embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You lost {amount} Integzacoins")
             await ctx.send(embed = embed)
-    else:
-        embed = discord.Embed(title=f"It lands on {rancolor}!", description = f"You lost {amount} Integzacoins")
-        await ctx.send(embed = embed)
 
+        
+    else:
+        side1 = user["last_work"] + datetime.timedelta(seconds=7) 
+        remaining = side1 - datetime.datetime.now()
+        embed = discord.Embed(title="Dude chill!", description = f" please wait {remaining.seconds//60} minutes and {remaining.seconds%60} seconds")
+        await ctx.send(embed=embed)
+
+    
 
     
 
