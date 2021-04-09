@@ -18,6 +18,7 @@ guild = bot.get_guild(757144308204961833)
 DATABASE_URL = os.environ['DATABASE_URL']
 bot.db = Database()
 workes = ["You crush some tomatos","You make some pancakes for your neighbor","you work at papa johns","you kill a couple of tomatos, integza is satisfied","you open an onlyfans, but youre ugly","you disrupt tomato lord Jr.'s workflow","you slash tomatos with your katana, integza san is satisfied","you milk some almonds"]
+noxpchannels = ["774312474987331627","774669694648057866","825541136399597609"]
 # TRIGGERS #
 
 metalTriggers = [ "3d print metal","print metal","metal printer"]
@@ -121,9 +122,10 @@ async def on_message(message):
     await bot.db.update_user_xp(message.author.id, 5)
     if message.author.bot:
         return 
-    if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
-        xpamount = random.randint(2,20)
-        await bot.db.update_user_xp(message.author.id, xpamount)
+    if message.channel.id not in noxpchannels:
+        if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
+            xpamount = random.randint(2,20)
+            await bot.db.update_user_xp(message.author.id, xpamount)
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
@@ -137,7 +139,7 @@ async def on_message(message):
         await message.channel.send("||<@" + str(message.author.id) +">||", embed = starliteembed)
         
     if(message.author == 414918675481493506):
-        chance = random.randint(1,10)
+        chance = random.randint(1,20)
         if(chance > 3):
             message.channel.send("Shut up integza!")
     
