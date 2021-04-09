@@ -18,7 +18,7 @@ guild = bot.get_guild(757144308204961833)
 DATABASE_URL = os.environ['DATABASE_URL']
 bot.db = Database()
 workes = ["You crush some tomatos","You make some pancakes for your neighbor","you work at papa johns","you kill a couple of tomatos, integza is satisfied","you open an onlyfans, but youre ugly","you disrupt tomato lord Jr.'s workflow","you slash tomatos with your katana, integza san is satisfied","you milk some almonds"]
-noxpchannels = ["774312474987331627","774669694648057866","825541136399597609"]
+noxpchannels = [774312474987331627,774669694648057866,825541136399597609]
 # TRIGGERS #
 
 metalTriggers = [ "3d print metal","print metal","metal printer"]
