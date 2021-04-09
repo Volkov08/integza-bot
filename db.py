@@ -46,9 +46,9 @@ class Database:
     
     async def update_user_balance(self, id: int, xp: int):
         await self.execute("UPDATE Users SET balance = balance + $1, last_work = NOW() WHERE id = $2;", xp, id)
-    async def reset_work(self, id: int)
+    async def reset_work(self, id: int):
         await self.execute("UPDATE Users SET last_work = NOW() WHERE id = $1", id)
-    async def reset_roulette(self, id: int)
+    async def reset_roulette(self, id: int):
         await self.execute("UPDATE Users SET last_roulette = NOW() WHERE id = $1", id)
     async def get_leaderboard(self):
         return await self.fetch("SELECT * FROM Users ORDER BY xp DESC LIMIT 15;")
