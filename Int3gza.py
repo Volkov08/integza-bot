@@ -229,7 +229,7 @@ async def work(ctx):
         reward = random.randint(7,31)
         embed = discord.Embed(title= random.choice(workes), description = f"you make {reward} Integzacoins")
         await bot.db.update_user_balance(ctx.message.author.id, reward)
-        ctx.send(embed=embed)
+        await ctx.send(embed=embed)
 
     
 
