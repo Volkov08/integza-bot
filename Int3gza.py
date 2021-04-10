@@ -142,7 +142,10 @@ async def on_message(message):
             if lvl < get_level(exp + xpamount,50)[0]:
                 embed = discord.Embed(title=f"Congratulations {message.author.name}!", description = f"You have reached level {get_level(exp + xpamount,50)[0]}")
                 await message.channel.send(embed=embed)
-            
+    if exp > 5250:
+        role_id = 830279960898961454
+        role = get(guild.roles, id=role_id)
+        await message.author.add_roles(role)
                 
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
