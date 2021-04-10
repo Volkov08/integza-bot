@@ -207,13 +207,15 @@ async def bal(ctx: commands.Context):
 
 @bot.command(name="xp")
 async def xp(ctx: commands.Context):
+    user = await bot.db.get_user(ctx.author.id)
     embed = discord.Embed(
         title=f"XP | {ctx.author}",
+        description=f"{get_level(user["xp"],50)[1]} XP away from level {get_level(user["xp"],50)[0] + 1}!",
         colour=0x87CEEB,
         timestamp=ctx.message.created_at,
     )
 
-    user = await bot.db.get_user(ctx.author.id)
+    
 
     if not user:
         xp = 0
