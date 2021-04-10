@@ -129,6 +129,8 @@ async def on_message(message):
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
             clvl = math.trunc(user["xp"] // 2000)
+            print(llvl)
+            print(clvl)
             if clvl > llvl:
                 embed = discord.Embed(title=f"Congratulations @{str(message.author.id)}", description = f"you just advanced to level {clvl}!")
                 await message.channel.send(embed=embed)
