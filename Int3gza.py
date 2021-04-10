@@ -124,11 +124,11 @@ async def on_message(message):
     if message.author.bot:
         return 
     if message.channel.id not in noxpchannels:
-        llvl = math.trunc(user["xp"] // 2000)
+        llvl = math.floor(user["xp"] // 2000)
         if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
-            clvl = math.trunc(user["xp"] // 2000)
+            clvl = math.floor(user["xp"] // 2000)
             print(llvl)
             print(clvl)
             if clvl > llvl:
