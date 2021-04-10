@@ -137,7 +137,7 @@ async def on_message(message):
             print(llvl2)
             print(clvl)
             if clvl > llvl2:
-                embed = discord.Embed(title=f"Congratulations @{str(message.author.id)}", description = f"you just advanced to level {clvl}!")
+                embed = discord.Embed(title=f"Congratulations @"+str(message.author.id)+, description = f"you just advanced to level {round(clvl)}!")
                 await message.channel.send(embed=embed)
                 
     
