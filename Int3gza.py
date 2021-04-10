@@ -130,15 +130,15 @@ async def on_message(message):
         if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
-            llvl2 = llvl / 2000
-            klvl = llvl + xpamount
-            clvl = klvl / 2000
-            print(llvl)
-            print(llvl2)
-            print(clvl)
-            if clvl > llvl2:
-                embed = discord.Embed(title=f"Congratulations @"+str(message.author.id)+, description = f"you just advanced to level {round(clvl)}!")
-                await message.channel.send(embed=embed)
+            #llvl2 = llvl / 2000
+            #klvl = llvl + xpamount
+            #clvl = klvl / 2000
+            #print(llvl)
+            #print(llvl2)
+            #print(clvl)
+            #if clvl > llvl2:
+                #embed = discord.Embed(title=f"Congratulations @"+str(message.author.id)+, description = f"you just advanced to level {round(clvl)}!")
+                #await message.channel.send(embed=embed)
                 
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
