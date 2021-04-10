@@ -107,6 +107,7 @@ async def memupdate():
 @bot.event
 async def on_ready():
     memupdate.start()
+    bot.guild = bot.get_guild(757144308204961833)
     await bot.change_presence(status=discord.Status.online, activity=discord.Game('Destroying Tomatos!'))
     print("--------------------")
     print('Logged in as')
@@ -129,7 +130,6 @@ async def on_message(message):
     global intpingembed
     global metalembed
     global yo
-    global guild
     await bot.wait_until_ready()
     user = await bot.db.get_user(message.author.id)
     if message.author.bot:
@@ -144,7 +144,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"Congratulations {message.author.name}!", description = f"You have reached level {get_level(exp + xpamount,50)[0]}")
                 await message.channel.send(embed=embed)
     if exp > 5250:
-        role = guild.get_role(830279960898961454)
+        role = bot.guild.get_role(830279960898961454)
         await message.author.add_roles(role)
                 
     
