@@ -1,4 +1,5 @@
 import discord
+import math
 import random
 import asyncio
 import logging
@@ -123,9 +124,15 @@ async def on_message(message):
     if message.author.bot:
         return 
     if message.channel.id not in noxpchannels:
+        llvl = math.trunc(user["xp"] // 2000)
         if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
+            clvl = math.trunc(user["xp"] // 2000)
+            if clvl > llvl:
+                embed = discord.Embed(title=f"Congratulations @{str(message.author.id)}", description = f"you just advanced to level {clvl}!")
+                await message.channel.send(embed=embed)
+                
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
         my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
