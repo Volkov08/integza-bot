@@ -209,9 +209,10 @@ async def bal(ctx: commands.Context):
 @bot.command(name="xp")
 async def xp(ctx: commands.Context):
     user = await bot.db.get_user(ctx.author.id)
+    missingxp = get_level(user["xp"],50)[1]
     embed = discord.Embed(
         title=f"XP | {ctx.author}",
-        description=str(get_level(user["xp"],50)[1]) +" XP away from level "+ str(int(get_level(user["xp"],50)[0]) + 1) +"!",
+        description=f"You are {missingxp} XP away from leveling up!",
         colour=0x87CEEB,
         timestamp=ctx.message.created_at,
     )
