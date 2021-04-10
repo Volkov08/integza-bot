@@ -129,6 +129,7 @@ async def on_message(message):
     global intpingembed
     global metalembed
     global yo
+    global guild
     await bot.wait_until_ready()
     user = await bot.db.get_user(message.author.id)
     if message.author.bot:
