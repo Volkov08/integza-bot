@@ -144,7 +144,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"Congratulations {message.author.name}!", description = f"You have reached level {get_level(exp + xpamount,50)[0]}")
                 await message.channel.send(embed=embed)
     if exp > 5250:
-        await message.author.add_roles(discord.Object(id=830279960898961454))
+        await message.author.add_roles(discord.Object(id=774698699992465408))
                 
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
