@@ -9,6 +9,7 @@ from discord.ext import commands, tasks
 import re
 from discord import Intents
 from db import Database
+from __future__ import division
 
 #  VARIABLES  #
 my_last_message = ""
@@ -128,8 +129,10 @@ async def on_message(message):
         if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
-            clvl = math.floor(user["xp"] // 2000)
+            llvl2 = llvl / 2000
+            clvl = math.floor(llvl2)
             print(llvl)
+            print(llvl2)
             print(clvl)
             if clvl > llvl:
                 embed = discord.Embed(title=f"Congratulations @{str(message.author.id)}", description = f"you just advanced to level {clvl}!")
