@@ -81,6 +81,13 @@ modhelp.add_field(
 modhelp.add_field(
     name="Someone is disrespecting staff / wont follow orders!", value="IF someone refuses to follow instructions ask a higher up to help with the situation", inline=False)
 
+def get_level(xp: int, thr: int) -> tuple:
+        level = int((1 + sqrt(1 + 8 * (xp / thr))) / 2)
+
+        x = ((level + 1) ** 2 * thr - (level + 1) * thr) * 0.5
+
+        return level, int(x - xp)
+
 # work embed
 
 workembed = discord.Embed(
@@ -126,19 +133,15 @@ async def on_message(message):
     if message.author.bot:
         return 
     if message.channel.id not in noxpchannels:
-        llvl = user["xp"]
+        exp = user["xp"]
+        lvl = get_level(exp,50)[0]
         if user["last_xp"] + datetime.timedelta(seconds=60) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
-            #llvl2 = llvl / 2000
-            #klvl = llvl + xpamount
-            #clvl = klvl / 2000
-            #print(llvl)
-            #print(llvl2)
-            #print(clvl)
-            #if clvl > llvl2:
-                #embed = discord.Embed(title=f"Congratulations @"+str(message.author.id)+, description = f"you just advanced to level {round(clvl)}!")
-                #await message.channel.send(embed=embed)
+            if lvl < get_level(exp + xpamount,50)[0]:
+                embed = discord.Embed(title=f"Congratulations {message.author.name}!", description = f"You have reached level {get_level(exp + xpamount,50)[0]}")
+                message.channel.send(embed=embed)
+            
                 
     
     if any(re.search(trg,message.content) != None for trg in metalTriggers):
