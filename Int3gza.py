@@ -143,7 +143,7 @@ async def on_message(message):
                 embed = discord.Embed(title=f"Congratulations {message.author.name}!", description = f"You have reached level {get_level(exp + xpamount,50)[0]}")
                 await message.channel.send(embed=embed)
     if exp > 5250:
-        role = get_role(830279960898961454)
+        role = guild.get_role(830279960898961454)
         await message.author.add_roles(role)
                 
     
