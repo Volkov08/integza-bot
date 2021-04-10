@@ -184,10 +184,6 @@ async def on_message(message):
         for role in message.author.roles:
             if role.name == "Chat Mods":
                 await message.author.send(embed = modhelp)
-    
-    if any(re.search(trg,message.content) != None for trg in metalTriggers):
-        my_last_message = await message.channel.send(embed=metalembed, delete_after= 20)
-        #await my_last_message.add_reaction("🗑️")
 
 @bot.command(name="bal")
 async def bal(ctx: commands.Context):
