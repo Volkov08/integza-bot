@@ -214,7 +214,8 @@ async def xp(ctx: commands.Context):
     user = await bot.db.get_user(ctx.author.id)
     xp = user["xp"]
     missingxp = get_level(user["xp"],50)[1]
-    embed = discord.Embed(title=f"XP | {ctx.author}", description=f"You are {missingxp} XP away from leveling up! \n Your current xp is {xp}", colour=0x87CEEB, timestamp=ctx.message.created_at)
+    level = get_level(user["xp"],50)[0]
+    embed = discord.Embed(title=f"XP | {ctx.author}", description=f"You are currently level {level} \n {missingxp} XP away from leveling up! \n Your current xp is {xp}", colour=0x87CEEB, timestamp=ctx.message.created_at)
 
     if not user:
         xp = 0
