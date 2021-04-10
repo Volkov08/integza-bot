@@ -1,4 +1,3 @@
-from __future__ import division
 import discord
 import math
 import random
@@ -10,6 +9,8 @@ from discord.ext import commands, tasks
 import re
 from discord import Intents
 from db import Database
+from typing import Tuple
+from math import sqrt
 
 
 #  VARIABLES  #
