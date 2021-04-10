@@ -126,16 +126,17 @@ async def on_message(message):
     if message.author.bot:
         return 
     if message.channel.id not in noxpchannels:
-        llvl = math.floor(user["xp"] // 2000)
+        llvl = user["xp"]
         if user["last_xp"] + datetime.timedelta(seconds=30) < datetime.datetime.now():
             xpamount = random.randint(2,20)
             await bot.db.update_user_xp(message.author.id, xpamount)
             llvl2 = llvl / 2000
-            clvl = math.floor(llvl2)
+            klvl = llvl + xpamount
+            clvl = klvl / 2000
             print(llvl)
             print(llvl2)
             print(clvl)
-            if clvl > llvl:
+            if clvl > llvl2:
                 embed = discord.Embed(title=f"Congratulations @{str(message.author.id)}", description = f"you just advanced to level {clvl}!")
                 await message.channel.send(embed=embed)
                 
